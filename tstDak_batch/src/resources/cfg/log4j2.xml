@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<configuration>
+ 
+    <Appenders>
+        <!-- 콜솔 -->
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{yyyy-MM-dd hh:mm:ss} %5p [%c] %m%n"/>
+        </Console>
+        
+        <!-- 파일  -->
+        <RollingFile name ="RollingFile">
+            <FileName>C:/eclipse/workspace/log/tstDak_batch/batch.log</FileName>
+            <FilePattern>C:/eclipse/workspace/log/tstDak_batch/batch_%d{yyyy-MM-dd}.log</FilePattern>
+            <PatternLayout>
+                <Pattern>%d{yyyy-MM-dd HH:mm:ss} %5p [%c] %m%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval = "1" modulate = "true"/>
+            </Policies>
+        </RollingFile>
+      
+    </Appenders>
+    
+    <loggers>
+        <root level="info" additivity="false">
+            <AppenderRef ref="console"/>
+            <AppenderRef ref="RollingFile"/>
+        </root>
+    </loggers>
+    
+</configuration> 

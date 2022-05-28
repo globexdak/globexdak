@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dak.tst.batch.mapper_101">
+
+<select id="select_001" parameterType="string" resultType="string">
+<![CDATA[
+SELECT COL02 FROM TBTEST001
+WHERE COL01 = #{VAL01}
+]]>
+</select>
+
+<select id="select_002" resultType="map">
+<![CDATA[
+SELECT * FROM TBTEST001
+WHERE COL01 LIKE #{pkVal} || '%'
+]]>
+</select>
+
+<insert id="insert_01" parameterType="java.util.Map">
+
+INSERT 
+  INTO TBTEST001
+(
+COL01,COL02,COL03,COL04
+)
+VALUES
+(
+#{VAL01},#{VAL02},#{VAL03},#{VAL04}
+)
+
+</insert>
+
+<insert id="insert_02" parameterType="java.util.Map">
+
+INSERT 
+  INTO TBTEST001
+(
+COL01,COL02,COL03,COL04
+)
+VALUES
+<foreach item="item" collection="list" separator=",">
+(
+#{item.VAL01},#{item.VAL02},#{item.VAL03},#{item.VAL04}
+)
+</foreach>
+
+</insert>
+
+<update id="update_01" parameterType="java.util.Map">
+UPDATE TBTEST001 
+   SET COL02 = #{VAL02}
+ WHERE COL01 = #{VAL01}
+</update>
+
+<delete id="delete_01" parameterType="java.util.Map">
+DELETE 
+  FROM TBTEST001 
+ WHERE COL01 = #{VAL01}
+</delete>
+
+</mapper>
