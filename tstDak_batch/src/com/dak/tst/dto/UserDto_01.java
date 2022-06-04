@@ -3,6 +3,8 @@ package com.dak.tst.dto;
 import java.io.Serializable;
 
 public class UserDto_01 implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
 	private String VAL01;
 	private String VAL02;
 	private String VAL03;

@@ -4,11 +4,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.ArrayList;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -74,7 +69,7 @@ public class TS99001 {
 		
 		int cnt3 = sqlSession.insert("dak.tst.batch.mapper_101.insert_01", map);
 		sqlSession.commit();
-		logger.info("getMybatis : 444>>> ");
+		logger.info("getMybatis : 444>>> " + cnt3);
 		
 		//TYPE-04 : insert Multi
 		UserDto_01 dto1 = new UserDto_01();
@@ -118,33 +113,7 @@ public class TS99001 {
 		
 	}
 	
-	public void getConnection() throws ClassNotFoundException {
-        Class.forName("org.postgresql.Driver");  
-        
-        String     connurl  = "jdbc:postgresql://127.0.0.1:5432/postgres";
-        String     user     = "postgres";
-        String     password = "pgdak99@";
- 
-        try 
-        {
-            Connection connection = DriverManager.getConnection(connurl, user, password);
-            Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT VERSION() AS version");
- 
-            while (rs.next()) {
-                  String version = rs.getString("version");
-                  
-                  logger.info("getConnection : 111>>> " + version);                  
-            }           
-            rs.close();
-            stmt.close();
-            connection.close();
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-    
+   
 	public static void main(String[] args) throws Exception {
 		
 		TS99001 batch = new TS99001();
