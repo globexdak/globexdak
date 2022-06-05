@@ -24,26 +24,26 @@ public class TestDao {
         return sqlSession.selectList("com.tstDak.TestMapper.selectN_TBTST001");
     }
 
-    public TestVo selectOne_User(String userid) { 
-        return sqlSession.selectOne("com.tstDak.TestMapper.selectN_TBTST001", userid);
+    public TestVo selectOne_User(String id) { 
+        return sqlSession.selectOne("com.tstDak.TestMapper.selectK_TBTST001", id);
     }
 
     //auto commit, auto close
-    public void insert_User(TestVo dto) {
-        sqlSession.insert("com.tstDak.TestMapper.selectN_TBTST001", dto);
+    public int insert_User(TestVo vo) {
+    	return sqlSession.insert("com.tstDak.TestMapper.insertK_TBTST001", vo);
     }
     
-    public void update_User(TestVo dto) {
-        sqlSession.update("com.tstDak.TestMapper.updateK_TBTST001", dto); 
+    public int update_User(TestVo vo) {
+    	return sqlSession.update("com.tstDak.TestMapper.updateK_TBTST001", vo); 
     }
 
-    public void delete_User(String userid) {
-        sqlSession.delete("com.tstDak.TestMapper.deleteK_TBTST001", userid); 
+    public int delete_User(String id) {
+    	return sqlSession.delete("com.tstDak.TestMapper.deleteK_TBTST001", id); 
     }
     
-    public boolean checkPw(String userid, String passwd) {
+    public boolean checkPassWd(String userid, String passwd) {
         boolean result=false;
-        //mapper에 2개 이상의 자료를 전달할 때 : map, dto 사용
+        //mapper에 2개 이상의 자료를 전달할 때 : map, vo 사용
         Map<String,String> map = new HashMap<String,String>();
         map.put("id", userid);
         map.put("passwd", passwd);

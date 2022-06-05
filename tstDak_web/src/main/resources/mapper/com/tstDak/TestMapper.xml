@@ -3,19 +3,18 @@
 
 <mapper namespace="com.tstDak.TestMapper">
 
-<select id="selectK_TBTST001" parameterType="java.util.Map" resultType="string">
+<select id="selectK_TBTST001" parameterType="String" resultType="com.tstDak.vo.TestVo">
 <![CDATA[
 SELECT ID,PASSWD,NAME,EMAIL,COUNTRY 
   FROM TBTST001
- WHERE ID = #{ID}
+ WHERE ID = #{id}
 ]]>
 </select>
 
-<select id="selectN_TBTST001" parameterType="java.util.Map" resultType="map">
+<select id="selectN_TBTST001" resultType="map">
 <![CDATA[
 SELECT ID,PASSWD,NAME,EMAIL,COUNTRY 
   FROM TBTST001
- WHERE ID LIKE #{ID} || '%'
 ]]>
 </select>
 
@@ -23,12 +22,12 @@ SELECT ID,PASSWD,NAME,EMAIL,COUNTRY
 <![CDATA[
 SELECT COUNT(1) 
   FROM TBTST001
- WHERE ID      = #{ID}
-   AND PASSWD  = #{PASSWD}
+ WHERE ID      = #{id}
+   AND PASSWD  = #{passwd}
 ]]>
 </select>
 
-<insert id="insertK_TBTST001" parameterType="java.util.Map">
+<insert id="insertK_TBTST001" parameterType="com.tstDak.vo.TestVo">
 
 INSERT 
   INTO TBTST001
@@ -37,7 +36,7 @@ ID,PASSWD,NAME,EMAIL,COUNTRY
 )
 VALUES
 (
-#{ID},#{PASSWD},#{NAME},#{EMAIL},#{COUNTRY}
+#{id},#{passwd},#{name},#{email},#{country}
 )
 
 </insert>
@@ -52,25 +51,25 @@ ID,PASSWD,NAME,EMAIL,COUNTRY
 VALUES
 <foreach item="item" collection="list" separator=",">
 (
-#{item.ID},#{item.PASSWD},#{item.NAME},#{item.EMAIL},#{item.COUNTRY}
+#{item.id},#{item.passwd},#{item.name},#{item.email},#{item.country}
 )
 </foreach>
 
 </insert>
 
-<update id="updateK_TBTST001" parameterType="java.util.Map">
+<update id="updateK_TBTST001" parameterType="com.tstDak.vo.TestVo">
 UPDATE TBTST001 
-   SET PASSWD  = #{PASSWD}
-     , NAME    = #{NAME}
-     , EMAIL   = #{EMAIL}
-     , COUNTRY = #{COUNTRY}
- WHERE ID = #{ID}
+   SET PASSWD  = #{passwd}
+     , NAME    = #{name}
+     , EMAIL   = #{email}
+     , COUNTRY = #{country}
+ WHERE ID = #{id}
 </update>
 
-<delete id="deleteK_TBTST001" parameterType="java.util.Map">
+<delete id="deleteK_TBTST001" parameterType="String">
 DELETE 
   FROM TBTST001 
- WHERE ID = #{ID}
+ WHERE ID = #{id}
 </delete>
 
 </mapper>
