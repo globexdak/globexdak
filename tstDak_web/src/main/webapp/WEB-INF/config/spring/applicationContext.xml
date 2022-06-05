@@ -1,38 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
-    
+
 	<!-- root-context에서는 Controller를 제외한 나머지 자원을 제어할 수 있도록 범위를 지정해준다. -->
-	<context:component-scan base-package="com.tstDak">
-		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	<context:component-scan
+		base-package="com.tstDak">
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
+	<!--  
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<!-- 드라이버 클래스 이름이 변경됨 -->
 		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
-		<!-- 연결문자열에 log4jdbc가 추가됨 -->
 		<property name="url" value="jdbc:log4jdbc:postgresql://localhost:5432/postgres?charSet=UTF-8" />
 		<property name="username" value="postgres" />
 		<property name="password" value="pgdak99@" />
 	</bean>
-	
+	-->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="org.postgresql.Driver" />
+        <property name="url" value="jdbc:postgresql://localhost:5432/postgres?charSet=UTF-8" />
+        <property name="username" value="postgres" />
+        <property name="password" value="pgdak99@" />
+    </bean>
+    
 	<!-- SqlSessionFactory 객체 주입 -->
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	<bean id="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<!-- mybatis 설정파일의 경로 -->
-		<property name="configLocation" value="classpath:/config/mybatis-config.xml"></property>
-			<!-- mybatis mapper 파일의 경로 -->
-		<property name="mapperLocations" value="classpath:mapper/**/*.xml"></property>
+		<property name="configLocation"
+			value="classpath:/config/mybatis-config.xml"></property>
+		<!-- mybatis mapper 파일의 경로 -->
+		<property name="mapperLocations"
+			value="classpath:mapper/**/*.xml"></property>
 	</bean>
-	
+
 	<!-- SqlSession 객체 주입 -->
-	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
-		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
+	<bean id="sqlSession"
+		class="org.mybatis.spring.SqlSessionTemplate"
+		destroy-method="clearCache">
+		<constructor-arg name="sqlSessionFactory"
+			ref="sqlSessionFactory"></constructor-arg>
 	</bean>
-	
+
 </beans>

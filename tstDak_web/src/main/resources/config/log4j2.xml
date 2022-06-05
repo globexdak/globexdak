@@ -20,12 +20,12 @@
 			<PatternLayout pattern="${layoutPattern}" />
 		</Console>
 
-		<RollingFile name="file" fileName="/log/${logNm}.log"
-			filePattern="/log/logs/${logNm}_%d{yyyy-MM-dd}_%i.log">
+		<RollingFile name="file" fileName="/eclipse/workspace/log/${logNm}.log"
+			filePattern="/eclipse/workspace/log/${logNm}_%d{yyyy-MM-dd}.log">
 			<PatternLayout pattern="${layoutPattern}" />
 			<Policies>
 				<SizeBasedTriggeringPolicy size="10MB" /> <!-- 10MB 용량이 초과시 DefaultRolloverStrategy 정책만큼 넘버링 -->
-				<TimeBasedTriggeringPolicy module="true"
+				<TimeBasedTriggeringPolicy modulate="true"
 					interval="1" /><!-- 일별 로그 파일 생성 -->
 			</Policies>
 			<DefaultRolloverStrategy max="500"
@@ -36,7 +36,7 @@
 	<Loggers>
 
 		<!-- 기본 레벨은 debug -->
-		<Root level="debug" additivity="false">
+		<Root level="info" additivity="false">
 			<AppenderRef ref="console" />
 			<AppenderRef ref="file" />
 		</Root>
@@ -48,20 +48,16 @@
 			<AppenderRef ref="file" />
 		</logger>
 
-		<Logger name="jdbc.sqltiming" level="debug" additivity="false">
-			<AppenderRef ref="Console" />
-		</Logger>
+		<logger name="jdbc.sqlonly" level="info" additivity="false">
+			<AppenderRef ref="console" />
+		</logger>
 		
-		<Logger name="jdbc.resultsettable" level="debug" additivity="false">
-			<AppenderRef ref="Console" />
-		</Logger>
-
-		<!-- rolling file에는 debug, console에는 info 분리하여 처리 가능하다. -->
+		<!-- rolling file에는 debug, console에는 info 분리하여 처리 가능하다. 
 		<logger name="tstDak_web" additivity="false">
 			<AppenderRef ref="console" level="info" />
 			<AppenderRef ref="file" level="debug" />
 		</logger>
-
+		-->
 	</Loggers>
 
 </Configuration>
