@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tstDak.TestMapper">
+
+<select id="selectK_TBTST001" parameterType="java.util.Map" resultType="string">
+<![CDATA[
+SELECT ID,PASSWD,NAME,EMAIL,COUNTRY 
+  FROM TBTST001
+ WHERE ID = #{ID}
+]]>
+</select>
+
+<select id="selectN_TBTST001" parameterType="java.util.Map" resultType="map">
+<![CDATA[
+SELECT ID,PASSWD,NAME,EMAIL,COUNTRY 
+  FROM TBTST001
+ WHERE ID LIKE #{ID} || '%'
+]]>
+</select>
+
+<select id="select_PWCHK_01" parameterType="java.util.Map" resultType="int">
+<![CDATA[
+SELECT COUNT(1) 
+  FROM TBTST001
+ WHERE ID      = #{ID}
+   AND PASSWD  = #{PASSWD}
+]]>
+</select>
+
+<insert id="insertK_TBTST001" parameterType="java.util.Map">
+
+INSERT 
+  INTO TBTST001
+(
+ID,PASSWD,NAME,EMAIL,COUNTRY
+)
+VALUES
+(
+#{ID},#{PASSWD},#{NAME},#{EMAIL},#{COUNTRY}
+)
+
+</insert>
+
+<insert id="insertN_TBTST001" parameterType="java.util.Map">
+
+INSERT 
+  INTO TBTST001
+(
+ID,PASSWD,NAME,EMAIL,COUNTRY
+)
+VALUES
+<foreach item="item" collection="list" separator=",">
+(
+#{item.ID},#{item.PASSWD},#{item.NAME},#{item.EMAIL},#{item.COUNTRY}
+)
+</foreach>
+
+</insert>
+
+<update id="updateK_TBTST001" parameterType="java.util.Map">
+UPDATE TBTST001 
+   SET PASSWD  = #{PASSWD}
+     , NAME    = #{NAME}
+     , EMAIL   = #{EMAIL}
+     , COUNTRY = #{COUNTRY}
+ WHERE ID = #{ID}
+</update>
+
+<delete id="deleteK_TBTST001" parameterType="java.util.Map">
+DELETE 
+  FROM TBTST001 
+ WHERE ID = #{ID}
+</delete>
+
+</mapper>
