@@ -2,17 +2,17 @@
 <!DOCTYPE configuration>
 
 <!-- appender : where -->
-<!-- layout : how -->
-<!-- message : what -->
-<!-- logger : who -->
-<!-- logging event level : logger가 메시지를 기록할 지 여부를 결정하는 기준. -->
-<!-- debug -> info -> warn -> error -> fatal -->
+<!-- layout   : how -->
+<!-- message  : what -->
+<!-- logger   : who -->
+<!-- level    : logger가 메시지를 기록할 지 여부를 결정하는 기준. -->
+<!-- trace > debug > info > warn > error > fatal > off -->
 <!-- logger에 설정된 이벤트 등급 이상의 이벤트만 기록. -->
 
-<Configuration status="INFO">
+<Configuration status="info">
 	<Properties>
 		<Property name="logNm">tstDak_web</Property>
-		<Property name="layoutPattern">%d [%t] %-5level %c(%M:%L) - %m%n</Property>
+		<Property name="layoutPattern">%d{yyyy-MM-dd HH:mm:ss} %5p %c(%M:%L) : %m%n</Property>
 	</Properties>
 
 	<Appenders>
@@ -34,23 +34,31 @@
 	</Appenders>
 
 	<Loggers>
-
-		<!-- 기본 레벨은 debug -->
+		<!-- root default level -->  
 		<Root level="info" additivity="false">
 			<AppenderRef ref="console" />
 			<AppenderRef ref="file" />
 		</Root>
-
-		<!-- 스프링 프레임워크에서 찍는건 level을 info로 설정 -->
-		<logger name="org.springframework" level="info"
-			additivity="false">
+		
+		<!-- 스프링 프레임워크에서 찍는건 level을 info로 설정 --> 
+		<logger name="org.springframework" level="info" additivity="false">
 			<AppenderRef ref="console" />
 			<AppenderRef ref="file" />
 		</logger>
-
-		<logger name="jdbc.sqlonly" level="info" additivity="false">
-			<AppenderRef ref="console" />
+		
+		<!--  
+		<logger name="log4jdbc.log4j2" level="warn" additivity="false">
+			<appender-ref ref="console" />
 		</logger>
+		-->
+		
+		<!-- jdbc.sql Loggers--> 
+        <Logger name="jdbc.connection"      level="off" additivity="false"><appender-ref ref="console" /></Logger>
+        <Logger name="jdbc.audit"           level="off" additivity="false"><appender-ref ref="console" /></Logger>
+        <Logger name="jdbc.sqlonly"         level="off" additivity="false"><appender-ref ref="console" /></Logger>
+		<Logger name="jdbc.sqltiming"       level="info" additivity="false"><appender-ref ref="console" /></Logger>
+        <Logger name="jdbc.resultset"       level="off" additivity="false"><appender-ref ref="console" /></Logger>
+        <Logger name="jdbc.resultsettable"  level="off" additivity="false"><appender-ref ref="console" /></Logger>
 		
 		<!-- rolling file에는 debug, console에는 info 분리하여 처리 가능하다. 
 		<logger name="tstDak_web" additivity="false">

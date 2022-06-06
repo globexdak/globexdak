@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -50,6 +51,16 @@ public class TestController {
         model.addAttribute("list", list);
         //WEB-INF/views/userList.jsp로 포워딩
         return "com/tstDak/userList";
+    }
+    
+    @RequestMapping("user/list2.do") //url mapping
+    public ModelAndView memberList(ModelAndView mv) {
+        List<TestVo> list=testService.selectList_User();
+        // 데이터와 뷰를 동시에 설정이 가능
+        mv.setViewName("com/tstDak/userList"); // 뷰의 이름
+        mv.addObject("list", list); // 뷰로 보낼 데이터 값
+        
+        return mv;
     }
 
     //@RequestParam  : request.getParameter("변수명") 대체    

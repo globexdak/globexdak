@@ -25,7 +25,7 @@ public class TestDao {
 
     //레코드 1개 :selectOne(), 2개 이상 : selectList()
     public List<TestVo> selectList_User() {
-    	logger.info("Welcome to TestService!");
+    	logger.info("Welcome to TestDao!");
         return sqlSession.selectList("com.tstDak.TestMapper.selectN_TBTST001");
     }
 
